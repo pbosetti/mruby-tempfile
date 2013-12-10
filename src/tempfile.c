@@ -9,8 +9,12 @@
 
 //#include <stdlib.h>
 #include <sys/types.h>
-#include <unistd.h>
-
+#if defined(_WIN32) || defined(_WIN64)
+  #include <process.h>
+  #define getpid _getpid
+#else
+  #include <unistd.h>
+#endif
 
 mrb_value
 mrb_tempfile_getpid(mrb_state *mrb, mrb_value self)
